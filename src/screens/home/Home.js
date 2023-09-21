@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FlatList, StyleSheet, Text, View } from 'react-native'
 import { Button } from 'react-native-paper'
 // import usuarios from '../../mocks/users.json'
@@ -10,7 +10,8 @@ export default function Home(props) {
 
     const [usuarios, setUsuarios] = useState([])
 
-    Api.get('/users')
+    useEffect(()=>{
+        Api.get('/users')
         .then(response => {
             console.log(response.data)
 
@@ -20,6 +21,9 @@ export default function Home(props) {
         .catch(err => {
             console.error("DEU RUIM AO CHAMAR: ", err)
         });
+    })
+
+    
 
     function irParaAScreenFeed() {
         props.navigation.navigate('Feed', { nome: "teste" });
